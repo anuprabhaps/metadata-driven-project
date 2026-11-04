@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+    <product>
+        <product_id>PROD001</product_id>
+        <product_name>Electric Scooter</product_name>
+        <category>Vehicles</category>
+        <price>85000.00</price>
+        <stock_quantity>25</stock_quantity>
+        <is_active>true</is_active>
+    </product>
+    <product>
+        <product_id>PROD002</product_id>
+        <product_name>Wireless Headphones</product_name>
+        <category>Electronics</category>
+        <price>2499.50</price>
+        <stock_quantity>100</stock_quantity>
+        <is_active>true</is_active>
+    </product>
+    <product>
+        <product_id>PROD003</product_id>
+        <product_name>Office Chair</product_name>
+        <category>Furniture</category>
+        <price>5999.00</price>
+        <stock_quantity>0</stock_quantity>
+        <is_active>false</is_active>
+    </product>
+</products>

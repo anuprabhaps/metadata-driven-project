@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sales>
+  <transaction>
+    <transaction_id>TXN001</transaction_id>
+    <customer_id>CUST001</customer_id>
+    <transaction_date>2026-10-20</transaction_date>
+    <amount>1500.0</amount>
+  </transaction>
+  <transaction>
+    <transaction_id>TXN002</transaction_id>
+    <customer_id>CUST002</customer_id>
+    <transaction_date>2026-10-21</transaction_date>
+    <amount>2300.5</amount>
+  </transaction>
+  <transaction>
+    <transaction_id>TXN003</transaction_id>
+    <customer_id>CUST001</customer_id>
+    <transaction_date>2026-10-22</transaction_date>
+    <amount>750.0</amount>
+  </transaction>
+  <transaction>
+    <transaction_id>TXN004</transaction_id>
+    <customer_id>CUST003</customer_id>
+    <transaction_date>2026-10-23</transaction_date>
+    <amount>3200.0</amount>
+  </transaction>
+</sales>

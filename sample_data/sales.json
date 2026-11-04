@@ -1,0 +1,26 @@
+[
+  {
+    "transaction_id": "TXN001",
+    "customer_id": "CUST001",
+    "transaction_date": "2026-10-20",
+    "amount": 1500.0
+  },
+  {
+    "transaction_id": "TXN002",
+    "customer_id": "CUST002",
+    "transaction_date": "2026-10-21",
+    "amount": 2300.5
+  },
+  {
+    "transaction_id": "TXN003",
+    "customer_id": "CUST001",
+    "transaction_date": "2026-10-22",
+    "amount": 750.0
+  },
+  {
+    "transaction_id": "TXN004",
+    "customer_id": "CUST003",
+    "transaction_date": "2026-10-23",
+    "amount": 3200.0
+  }
+]

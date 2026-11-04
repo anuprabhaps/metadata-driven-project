@@ -1,0 +1,212 @@
+
+# # ============================================================
+# # METADATA-DRIVEN DATA INGESTION FRAMEWORK
+# # Client Metadata Contract
+# # ============================================================
+
+# # 1. Client Information
+# client_info:
+#   client_id: "CLIENT_ALPHA"
+#   environment: "dev"
+#   contact_email: "data_ops@clientalpha.com"
+
+# # 2. Delivery Information
+# delivery_metadata:
+#   delivery_id: "DELIVERY_001"
+#   completion_signal_file: "_READY"
+#   load_type: "INCREMENTAL"
+
+# # 3. Source Configuration
+# source_config:
+#   file_pattern: "employees.csv"
+#   file_format: "CSV"
+#   delimiter: ","
+#   header: true
+#   encoding: "UTF-8"
+
+# # 4. Destination Configuration
+# destination_config:
+#   target_database: "bronze_client_alpha"
+#   target_table: "raw_sales_transactions"
+#   storage_location: "TO_BE_CONFIGURED"
+
+# # 5. Schema Definition
+# schema_definition:
+#   columns:
+#     - name: "transaction_id"
+#       data_type: "STRING"
+#       mandatory: true
+#       is_primary_key: true
+#       target_column: "txn_id"
+
+#     - name: "customer_id"
+#       data_type: "STRING"
+#       mandatory: true
+#       is_foreign_key: true
+#       references: "dim_customer.cust_id"
+#       target_column: "cust_id"
+
+#     - name: "transaction_date"
+#       data_type: "DATE"
+#       format: "yyyy-MM-dd"
+#       mandatory: true
+#       target_column: "txn_date"
+
+#     - name: "amount"
+#       data_type: "DECIMAL(12,2)"
+#       mandatory: true
+#       target_column: "txn_amount"
+
+# # 6. Data Quality Rules
+# quality_rules:
+#   - rule_id: "QR_001"
+#     column: "amount"
+#     check_type: "GREATER_THAN"
+#     threshold: 0
+#     on_failure: "QUARANTINE_RECORD"
+
+#   - rule_id: "QR_002"
+#     column: "transaction_id"
+#     check_type: "UNIQUE"
+#     on_failure: "QUARANTINE_RECORD"
+
+# # 7. Logical Data Model
+# logical_model:
+#   entity_role: "FACT"
+#   relationships:
+#     - parent_table: "dim_customer"
+#       fk_column: "customer_id"
+#       pk_column: "cust_id"
+#       relationship_type: "MANY_TO_ONE"
+
+
+# ============================================================
+# METADATA-DRIVEN DATA INGESTION FRAMEWORK
+# ============================================================
+
+client_info:
+  client_id: "CLIENT_ALPHA"
+  environment: "dev"
+  contact_email: "data_ops@clientalpha.com"
+
+delivery_metadata:
+  delivery_id: "DELIVERY_001"
+  completion_signal_file: "_READY"
+  load_type: "INCREMENTAL"
+
+# ------------------------------------------------------------
+# SOURCE CONFIGURATIONS
+# Add one entry for each different logical dataset.
+# The Python code processes every entry in this list.
+# ------------------------------------------------------------
+
+sources:
+
+  # SOURCE 1: SALES
+  - source_id: "SRC_SALES"
+
+    source_config:
+      file_pattern: "sales.*"
+      delimiter: ","
+      header: true
+      encoding: "UTF-8"
+
+    destination_config:
+      target_database: "bronze_client_alpha"
+      target_table: "raw_sales_transactions"
+      storage_location: "TO_BE_CONFIGURED"
+
+    schema_definition:
+      columns:
+        - name: "transaction_id"
+          data_type: "STRING"
+          mandatory: true
+          is_primary_key: true
+          target_column: "txn_id"
+
+        - name: "customer_id"
+          data_type: "STRING"
+          mandatory: true
+          is_foreign_key: true
+          references: "dim_customer.cust_id"
+          target_column: "cust_id"
+
+        - name: "transaction_date"
+          data_type: "DATE"
+          format: "yyyy-MM-dd"
+          mandatory: true
+          target_column: "txn_date"
+
+        - name: "amount"
+          data_type: "DECIMAL(12,2)"
+          mandatory: true
+          target_column: "txn_amount"
+
+    quality_rules:
+      - rule_id: "QR_001"
+        column: "amount"
+        check_type: "GREATER_THAN"
+        threshold: 0
+        on_failure: "QUARANTINE_RECORD"
+
+      - rule_id: "QR_002"
+        column: "transaction_id"
+        check_type: "UNIQUE"
+        on_failure: "QUARANTINE_RECORD"
+
+    logical_model:
+      entity_role: "FACT"
+      relationships:
+        - parent_table: "dim_customer"
+          fk_column: "customer_id"
+          pk_column: "cust_id"
+          relationship_type: "MANY_TO_ONE"
+
+  # SOURCE 2: CUSTOMERS
+  - source_id: "SRC_CUSTOMERS"
+
+    source_config:
+      file_pattern: "customers.*"
+      encoding: "UTF-8"
+      header: true
+
+    destination_config:
+      target_database: "bronze_client_alpha"
+      target_table: "raw_customers"
+      storage_location: "TO_BE_CONFIGURED"
+
+    schema_definition:
+      columns:
+        - name: "customer_id"
+          data_type: "STRING"
+          mandatory: true
+          is_primary_key: true
+
+        - name: "customer_name"
+          data_type: "STRING"
+          mandatory: true
+
+        - name: "email"
+          data_type: "STRING"
+          mandatory: false
+
+        - name: "city"
+          data_type: "STRING"
+          mandatory: false
+
+        - name: "signup_date"
+          data_type: "DATE"
+          mandatory: false
+
+        - name: "is_active"
+          data_type: "BOOLEAN"
+          mandatory: false
+
+    quality_rules: []
+
+    logical_model:
+      entity_role: "DIMENSION"
+      relationships: []
+
+# Add SRC_PRODUCTS, SRC_ORDERS, SRC_PAYMENTS, etc.
+# as additional entries whenever required.
